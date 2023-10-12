@@ -1,0 +1,73 @@
+/* Carousel align, on phone responsive big gap between frst container and carousel */
+#carouselExampleSlidesOnly {
+    width: 100%; 
+    height: auto; 
+    overflow: hidden; 
+}
+
+.carousel-inner .carousel-item {
+    display: flex; 
+    align-items: center; 
+}
+
+.carousel-inner .carousel-item img {
+    flex: 1; 
+    object-fit: cover; 
+    height: auto; 
+}
+
+@media (max-width: 767px) {
+    #carouselExampleSlidesOnly {
+        margin-bottom: -15px; 
+    }
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+  
+body {
+    display: flex;
+    flex-direction: column;
+}
+  
+.container {
+    flex: 1;
+}
+  
+footer {
+    flex-shrink: 0;
+}
+
+
+
+.custom-toast {
+    max-width: 1200px;
+    width: 100%;
+    padding: 40px;
+}
+
+.custom-toast .toast-body {
+    font-size: 40px;
+    line-height: 1.5;
+}
+
+/* checkbox */
+#acceptTerms {
+    transform: scale(1.7); 
+    margin-right: 15px; 
+}
+
+
+#acceptTerms:checked + .form-check-label::before {
+    background-color: #e95420; 
+    border-color: #e95420;
+}
+
+
+#acceptTerms + .form-check-label {
+    color: #e95420; 
+    font-weight: bold; 
+}

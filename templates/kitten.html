@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Free Kitten{% endblock %}
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style02.css') }}">
+</head>
+<br>
+<h1>We hope you have a lovely day</h1>
+<br>
+<div class="container">
+    <!-- Display the API Call Button -->
+    <h4>Click the Button to Get a Random Kitten</h4>
+    <button id="get-kitten-button" class="btn btn-primary">Get a New Kitten!</button>
+    <div id="kitten-container" class="image-container">
+        <img id="kitten" src="" alt="Kitten" class="img-fluid">
+    </div>
+</div>
+
+<script>
+    // Function to fetch a random kitten picture from an API
+    function getKitten() {
+        fetch("https://api.thecatapi.com/v1/images/search")
+            .then((response) => response.json())
+            .then((data) => {
+                const kittenImgUrl = data[0].url;
+                document.getElementById("kitten").src = kittenImgUrl;
+            })
+            .catch((error) => {
+                console.error("Error fetching kitten image:", error);
+            });
+    }
+
+    // Attach the click event to the button
+    document.getElementById("get-kitten-button").addEventListener("click", getKitten);
+
+    // Load a kitten picture when the page loads
+    getKitten();
+</script>
+
+{% endblock %}

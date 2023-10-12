@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}ITIVA'S PAINKILLER{% endblock %}
+
+{% block content %}
+<!-- Carousel -->
+<div id="carouselExampleSlidesOnly" class="carousel slide pointer-event" data-bs-ride="carousel" style="max-height: 300px; margin-bottom: 0;">
+    <div class="carousel-inner">
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='hlag02.webp') }}" class="d-block w-100" alt="Image 2">
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Column 1 (Inverted) -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    Requerimientos para la carga de archivos
+                </div>
+                <div class="card-body">
+                    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+                        <h4 id="list-item-1"><strong>Requerimientos Generales:</strong></h4>
+                        <ul>
+                            <li>Solo se permite la carga de archivos XML y PDF</li>
+                            <li>Cada archivo XML debe ir acompañado por su correspondiente PDF <u>bajo el mismo nombre</u>.</li>
+                            <li>El nombre de los archivos no debe exceder de 30 caracteres de longitud.</li>
+                            <li>Solo se aceptará cargar 50 archivos por evento equivalente a 25 facturas.</li>
+                            <li>Carga de formatos diferentes no se entregaran correctamente.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Column 2 (Inverted) -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="mb-3">Inland Transport Invoice Validation</h2>
+                    <h2 class="mb-4">Carga de documentos</h2>
+                    <p>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul class="flashes">
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
+                    </p>
+                    <form method="post" action="/itiva" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="files" class="form-label">Seleccione archivos</label>
+                            <input type="file" class="form-control" id="files" name="files[]" multiple="true" autocomplete="off" required>
+                        </div>
+                        
+                        <!-- Add the checkbox for accepting terms -->
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="acceptTerms" name="accept_terms" required>
+                            <label class="form-check-label" for="acceptTerms">Acepto los términos y condiciones</label>
+                        </div>
+                    
+                        <!-- Create a container div for vertical alignment -->
+                        <div class="d-flex flex-column align-items-center">
+                            <!-- Add the spinner element with the "d-none" class to hide it initially -->
+                            <div class="spinner-border text-primary d-none" role="status" id="uploadSpinner" style="width: 4rem; height: 4rem;">
+                                <span class="visually-hidden">Cargando...</span>
+                            </div>
+                        
+                            <!-- Place the button below the spinner -->
+                            <button type="submit" class="btn btn-primary mt-2" id="submitButton" disabled>Enviar</button>
+                        </div>
+                    </form>
+                    
+                    <script>
+                        // Add an event listener to the checkbox to enable/disable the submit button
+                        document.getElementById("acceptTerms").addEventListener("change", function() {
+                            document.getElementById("submitButton").disabled = !this.checked;
+                        });
+                    </script>
+                                                 
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $("form").on("submit", function () {
+                                // Show the spinner when the form is submitted
+                                $("#uploadSpinner").removeClass("d-none");
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message == 'Archivo(s) inválido, Revisar Requerimientos Generales' %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: center">
+                            <strong>Archivo(s) inválido</strong>, Revisar Requerimientos Generales.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% elif message == 'Archivos procesados correctamente' %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="text-align: center">
+                            <strong>Archivos procesados correctamente</strong> We hope u have a lovely day.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+
+{% endblock %}

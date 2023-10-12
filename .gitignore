@@ -1,0 +1,29 @@
+# Ignore Python virtual environment folders
+venv/
+
+# Ignore pycache and __pycache__ directories
+__pycache__/
+
+# Ignore local development settings
+instance/
+
+# Ignore environment-specific configuration files
+*.env
+
+# Ignore editor and IDE files
+.vscode/
+.idea/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+# Ignore sensitive files
+secrets.ini
+secrets.yaml
+
+# Ignore compiled and build files
+*.pyc
+*.pyo
+__pycache__/
+
