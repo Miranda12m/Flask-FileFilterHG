@@ -29,7 +29,8 @@ The Cat API Screen, I was at the office working on this project and I decided to
 ## Requirements
 
 - pip install virtualenv (create and activate virtualenv)
-- pip install -r requirements.txt 
+- pip install -r requirements.txt
+- python app.py
 
 ### General Requirements:
 
